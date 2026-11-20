@@ -1,6 +1,6 @@
 # Tax refund automation (Amazon + eBay)
 
-One of my first projects. When you buy in the US and ship through a freight forwarder to another country, many sellers will refund the sales tax if you prove the order left the country. Doing that by hand for dozens of orders is slow, so I automated each step:
+One of my first projects. At my cargo company, customers bought on Amazon and shipped to our Florida warehouse; Amazon charged Florida sales tax (7%) even though the package was then exported. We found that with an export certificate you can write to the store, prove the package left the country and get the tax refunded. Doing that by hand for dozens of orders is slow, so I automated each step:
 
 | File | What it does |
 |---|---|
