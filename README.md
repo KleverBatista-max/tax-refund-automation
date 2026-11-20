@@ -8,6 +8,8 @@ One of my first projects (2023). At my cargo company, customers bought on Amazon
 | `vba/amazon_macros.txt`, `vba/ebay_macros.txt` | Excel macros (the workbooks keep a DATA sheet, a per-order document sheet and a mailer sheet). `Generate` exports the active sheet to PDF named after a cell; `GenerateAll` repeats it for all N orders; `CreateCourseCertificates` opens one Outlook draft per order with the PDF attached, asking for the refund |
 | `hotkeys.ahk` | AutoHotkey shortcuts that went with it |
 
+**Most of the logic is in the cell formulas, not the VBA:** see [`docs/workbook-formulas.md`](docs/workbook-formulas.md) for the formulas of the Amazon and eBay workbooks (the eBay one only has `Generate` and `GenerateAll` in VBA).
+
 The workbooks themselves are not included (they hold personal data); the macros are plain text, ready to paste into a new workbook. Replace `<FORWARDER ADDRESS>` and `<YOUR NAME>` with your own, and adjust cell references (`Q2`, `Q5`, `O3`, `O8`…) to your sheet.
 
 Created by **John Batista** ([@KleverBatista-max](https://github.com/KleverBatista-max)). MIT licensed. Use it only on your own accounts and follow each store's terms.
