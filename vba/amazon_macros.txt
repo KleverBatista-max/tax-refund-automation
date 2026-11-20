@@ -1,0 +1,95 @@
+VBA MACRO Módulo1.bas 
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Módulo1'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Sub Generate()
+Dim wsA As Worksheet
+Dim wbA As Workbook
+Dim strName As String
+Dim strPath As String
+Dim strFile As String
+Dim strPathFile As String
+Dim myFile As Variant
+On Error GoTo errHandler
+Set wbA = ActiveWorkbook
+Set wsA = ActiveSheet
+
+Application.DefaultFilePath = Range("Q8")
+strFile = Range("Q2").Value & ".pdf"
+
+strPathFile = Application.DefaultFilePath & strFile
+wsA.ExportAsFixedFormat _
+    Type:=xlTypePDF, _
+    Filename:=strPathFile, _
+    Quality:=xlQualityStandard, _
+    IncludeDocProperties:=True, _
+    IgnorePrintAreas:=False, _
+    OpenAfterPublish:=False
+exitHandler:
+    Exit Sub
+errHandler:
+    MsgBox "Could not create PDF file"
+    Resume exitHandler
+End Sub
+
+
+
+
+
+Sub GenerateAll()
+
+Dim i As Integer
+For i = 1 To Range("Q5").Value
+    Range("Q6").Value = i
+    Call Generate
+Next i
+
+End Sub
+
+-------------------------------------------------------------------------------
+VBA MACRO Módulo2.bas 
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Módulo2'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Sub CreateCourseCertificates()
+
+'Dim EApp As Object
+'Set EApp = CreateObject("Outlook.Application")
+'Dim EItem As Object
+
+Dim EApp As Outlook.Application
+Set EApp = New Outlook.Application
+Dim EItem As Outlook.MailItem
+Set EItem = EApp.CreateItem(olMailItem)
+
+Dim path As String
+path = (Range("O8"))
+
+Dim RList As Range
+Set RList = Range("A2", Range("a2").End(xlDown))
+
+Dim R As Range
+
+For Each R In RList
+    Set EItem = EApp.CreateItem(0)
+        With EItem
+        .To = Range("O3")
+        .Subject = "Tax Refunds on Freight Forward Exports from the United States"
+        .Attachments.Add (path & R.Offset(0, 3))
+        .Body = "I would like to request refunds for taxes paid for these orders that their final destination was Panama. Below you can find more information and also attached you can find the documents requested on the website" & R & vbNewLine & vbNewLine _
+        & "Freight Forwarder Address: <FORWARDER ADDRESS> " & vbNewLine & vbNewLine & "Order n.º:" & R.Offset(0, 4) _
+        & vbNewLine & vbNewLine & "Best regards" & vbNewLine & vbNewLine & _
+        "<YOUR NAME>"
+        .Display
+End With
+Next R
+
+Set EApp = Nothing
+Set EItem = Nothing
+
+End Sub
+
+-------------------------------------------------------------------------------
+VBA MACRO Hoja3.cls 
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Hoja3'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+(empty macro)
+

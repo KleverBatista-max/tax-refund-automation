@@ -1,0 +1,53 @@
+VBA MACRO Módulo1.bas 
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Módulo1'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Sub Generate()
+Dim wsA As Worksheet
+Dim wbA As Workbook
+Dim strName As String
+Dim strPath As String
+Dim strFile As String
+Dim strPathFile As String
+Dim myFile As Variant
+On Error GoTo errHandler
+Set wbA = ActiveWorkbook
+Set wsA = ActiveSheet
+
+Application.DefaultFilePath = Range("Q9")
+strFile = Range("Q2").Value & ".pdf"
+
+strPathFile = Application.DefaultFilePath & strFile
+wsA.ExportAsFixedFormat _
+    Type:=xlTypePDF, _
+    Filename:=strPathFile, _
+    Quality:=xlQualityStandard, _
+    IncludeDocProperties:=True, _
+    IgnorePrintAreas:=False, _
+    OpenAfterPublish:=False
+exitHandler:
+    Exit Sub
+errHandler:
+    MsgBox "Could not create PDF file"
+    Resume exitHandler
+End Sub
+
+
+
+
+
+Sub GenerateAll()
+
+Dim i As Integer
+For i = 1 To Range("Q5").Value
+    Range("Q6").Value = i
+    Call Generate
+Next i
+
+End Sub
+
+-------------------------------------------------------------------------------
+VBA MACRO Hoja3.cls 
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Hoja3'
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+(empty macro)
+
